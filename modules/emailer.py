@@ -5,8 +5,8 @@ import os
 from email.message import EmailMessage
 
 
-SENDER_EMAIL = "ansonantony.pbox@gmail.com"
-APP_PASSWORD = "qzqjkxtubdgnfrvs"
+SENDER_EMAIL = "sender@email.com"
+APP_PASSWORD = "app_password"
 
 def send_intruder_alert(recipient_email: str, image_path: str):
     """
