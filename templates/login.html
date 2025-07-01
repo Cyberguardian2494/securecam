@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SecureCam Web Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2>SecureCam Login</h2>
+
+  <form method="POST" action="/submit-login" enctype="multipart/form-data">
+    <input type="text" name="username" placeholder="Username" required><br>
+    <input type="password" name="password" placeholder="Password" required><br><br>
+    <video id="video" autoplay playsinline></video><br>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <input type="hidden" name="image_data" id="image_data">
+    <button type="submit" onclick="capture()">Login</button>
+  </form>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const imageDataInput = document.getElementById('image_data');
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => video.srcObject = stream)
+      .catch(err => console.error("Camera error", err));
+
+    function capture() {
+      const ctx = canvas.getContext('2d');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      ctx.drawImage(video, 0, 0);
+      imageDataInput.value = canvas.toDataURL('image/jpeg');
+    }
+  </script>
+</body>
+</html>
